@@ -3413,4 +3413,4 @@ if(typeof module!=='undefined')module.exports={createBridge};
  window.addEventListener('load',init);
 })();
 </script>
-</body></html>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.production.js',{scope:'./'}).catch(err=>console.warn('MILFT PWA:',err)));}</script></body></html>
