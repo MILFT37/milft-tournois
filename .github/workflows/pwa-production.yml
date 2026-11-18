@@ -1,0 +1,21 @@
+name: Verification PWA production V1.1
+on:
+  push:
+    branches:
+      - pwa-v11-preparation-20261118
+    paths:
+      - 'sw.production.js'
+      - 'manifest.production.webmanifest'
+      - 'MILFT_Tournois_V1_1_PRODUCTION_PRETE_2026-11-17.html'
+      - 'tests/pwa-production.cjs'
+      - '.github/workflows/pwa-production.yml'
+  workflow_dispatch:
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/pwa-production.cjs
