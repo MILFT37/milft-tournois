@@ -14,7 +14,7 @@ const ctx={URL,console,self:{location:{origin:new URL(scope).origin},registratio
 vm.runInNewContext(sw,ctx);
 (async()=>{
 let installing;handlers.install({waitUntil:p=>installing=p});await installing;
-assert.equal(cached.size,3);
+assert.equal(cached.size,5);
 for(const path of ['','index.html',app]){
 let response;handlers.fetch({request:{url:new URL(path,scope).href,method:'GET',mode:'navigate'},respondWith:p=>response=p});
 assert.ok(response,'missing navigation handler: '+path);
