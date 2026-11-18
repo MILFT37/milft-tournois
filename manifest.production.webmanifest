@@ -9,13 +9,13 @@
   "theme_color": "#113e78",
   "icons": [
     {
-      "src": "https://milft37.github.io/milft-tournois-validation/MILFT_Tournois_192.png",
+      "src": "./MILFT_Tournois_192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://milft37.github.io/milft-tournois-validation/MILFT_Tournois_512.png",
+      "src": "./MILFT_Tournois_512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
