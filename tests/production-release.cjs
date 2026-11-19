@@ -14,13 +14,16 @@ for(const text of [
  "const MILFT_PROGRESS_PREFS='milft_prod_v11_20261117_progress_v069'",
  "const MILFT_THEME_KEY='milft_prod_v11_20261117_ui_theme'",
  "MILFT_PROD_V11_20261117_SECOURS",
- 'SAUVEGARDE LOCALE ACTIVE • Google Drive facultatif',
- 'milft-drive-v11-production.js?v=20261119-prod-candidate-200-01'
+ 'id="milft-local-brief"',
+ 'id="milft-drive-brief"',
+ 'id="milft-auto-brief"',
+ 'milft-drive-v11-production.js?v=20261119-drive-status-67-01'
 ]) assert(html.includes(text),'Required production artifact missing: '+text);
 assert(!html.includes("MILFT_ISO_20261102_SECOURS"));
 assert(!html.includes("MILFT_JOUEURS_REFERENCE_20261014"));
 assert(!html.includes("drive.appdata"));
 assert(!html.includes("Google Drive désactivé"));
+assert(!html.includes('SAUVEGARDE LOCALE ACTIVE • Google Drive facultatif'),'Old static warning must be removed');
 assert(html.includes('<small>Gestion des tournois de football de table</small>'),'General application subtitle required');
 assert(html.includes('<span class="pill">MILFT Tournois V1.1</span>'),'Correct application badge required');
 assert(!html.includes('V1.1 CHAMPIONNAT SIMPLE'),'Obsolete specific badge prohibited');
@@ -34,7 +37,7 @@ assert.match(drive,/function backupSummary\(data\)/,'Consent preview');
 assert.match(drive,/const ok=await upload\('activation',true,prepared\)/,'First backup consent required');
 assert.match(drive,/startsWith\('\/milft-tournois\/'\)/,'Production origin restriction');
 assert(!drive.includes("startsWith('/milft-tournois-validation/')"));
-assert.match(sw,/milft-drive-v11-production\.js\?v=20261119-prod-candidate-200-01/);
+assert.match(sw,/milft-drive-v11-production\.js\?v=20261119-drive-status-67-01/);
 assert(!fs.existsSync('MILFT_SAUVEGARDE_COMPLETE_2026-11-19.json'));
 for(const [i,script] of [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)].filter(([,attrs,code])=>!/(?:^|\s)src\s*=/.test(attrs)&&code.trim()).entries()) new vm.Script(script[2],{filename:'inline-prod-'+i+'.js'});
 new vm.Script(drive,{filename:'milft-drive-v11-production.js'});

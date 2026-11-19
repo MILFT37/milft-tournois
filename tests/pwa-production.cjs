@@ -15,7 +15,7 @@ vm.runInNewContext(sw,ctx);
 (async()=>{
 let installing;handlers.install({waitUntil:p=>installing=p});await installing;
 assert.equal(cached.size,6);
-assert.ok(cached.has(new URL('./milft-drive-v11-production.js?v=20261119-prod-candidate-200-01',scope).href),'Versioned Drive JS pre-cached');
+assert.ok(cached.has(new URL('./milft-drive-v11-production.js?v=20261119-drive-status-67-01',scope).href),'Versioned Drive JS pre-cached');
 for(const path of ['','index.html',app]){
 let response;handlers.fetch({request:{url:new URL(path,scope).href,method:'GET',mode:'navigate'},respondWith:p=>response=p});
 assert.ok(response,'missing navigation handler: '+path);
