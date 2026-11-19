@@ -9,12 +9,13 @@ assert.equal(manifest.scope,'./');
 assert.ok(manifest.icons.some(i=>i.sizes==='192x192'));
 assert.ok(manifest.icons.some(i=>i.sizes==='512x512'));
 const handlers={},cached=new Map(),scope='https://milft37.github.io/milft-tournois/';
-const cache={addAll:async paths=>{for(const p of paths){assert.ok(fs.existsSync(p.replace(/^\.\//,'')),p);cached.set(new URL(p,scope).href,{path:p,offline:true})}},match:async req=>cached.get(typeof req==='string'?new URL(req,scope).href:req.url)};
+const cache={addAll:async paths=>{for(const p of paths){assert.ok(fs.existsSync(p.replace(/^\.\//,'').split('?')[0]),p);cached.set(new URL(p,scope).href,{path:p,offline:true})}},match:async req=>cached.get(typeof req==='string'?new URL(req,scope).href:req.url)};
 const ctx={URL,console,self:{location:{origin:new URL(scope).origin},registration:{scope},addEventListener:(type,fn)=>handlers[type]=fn,skipWaiting:()=>{},clients:{claim:()=>{}}},caches:{open:async()=>cache,match:cache.match,keys:async()=>[],delete:async()=>true},fetch:async()=>{throw Error('offline')}};
 vm.runInNewContext(sw,ctx);
 (async()=>{
 let installing;handlers.install({waitUntil:p=>installing=p});await installing;
-assert.equal(cached.size,5);
+assert.equal(cached.size,6);
+assert.ok(cached.has(new URL('./milft-drive-v11-production.js?v=20261119-prod-candidate-200-01',scope).href),'Versioned Drive JS pre-cached');
 for(const path of ['','index.html',app]){
 let response;handlers.fetch({request:{url:new URL(path,scope).href,method:'GET',mode:'navigate'},respondWith:p=>response=p});
 assert.ok(response,'missing navigation handler: '+path);
